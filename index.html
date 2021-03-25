@@ -1,34 +1,62 @@
 ---
 layout: default
-title: "Ed."
+title: Home
 ---
-<div class="introduction">
-  <h1>hi.</h1>
 
-<p>
-  Ed is a <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> theme designed for textual
-  editors based on <a href="http://go-dh.github.io/mincomp/">minimal computing principles</a>, and
-  focused on legibility, durability, ease and flexibility. Our underlying technology is easy to
-  learn and teach, and can produce beautifully rendered scholarly or reading editions of texts meant
-  to last. To start using Ed, please see <a href="{{ site.baseurl }}/documentation/">our
-  documentation</a> for installation instructions and more. To learn more about the ideas behind Ed
-  and a list of current features see our <a href="{{ site.baseurl }}/about/">about</a> section. To
-  see Ed in action, we've provided some sample minimal editions for you below.
-</p>
-</div>
+<div class="home">
+  <div class="post-list">
 
-<hr>
+    {% for post in site.posts limit:5%}
 
-<div class="toc">
-  <h2>sample texts</h2>
-  <ul class="texts">
-  {% for item in site.texts %}
+    <article class="post_card post">
+      <header class="post_header">
+        <h2 class="post_title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title}}</a></h2>
+        <time class="post_date">{{ post.date | date: "%d %B %Y, %A" }}</time>
+      </header>
+      <div class="post_excerpt">
+        <p>
+          {% if post.description %}
+          {{ post.description}}
+          {% else %}
+          {{ post.excerpt }}
+          {% endif %} 
+          <a class="read-more" href="{{ post.url | prepend: site.baseurl }}"> »  </a>
+        </p> 
+      </div>
+      <footer class="post_meta">
 
-    <li class="text-title">
-      <a href="{{ site.baseurl }}{{ item.url }}">
-        {{ item.title }}
-      </a>
-    </li>
-  {% endfor %}
-  </ul>
+
+        {% if post.location %}
+        <span class="author-location">
+          <div data-icon="ei-location"></div>
+          <a href=https://www.google.com/maps/place/{{post.location}}">{{ post.location }}</a>
+        </span>
+        {% endif %}
+        <!--
+        {% for category in post.categories %}
+        <a href="{{"/category/" | append: category | prepend: site.baseurl }}">
+          <data data-icon="ei-archive"></data>
+          {{category}}</a>
+        {% endfor %}
+        -->
+
+        <!--
+        {% if post.author %}
+        <span class="author_meta">
+          <img src="{{site.baseurl}}/assets/img/{{post.author}}.jpg"></img>
+          <span>David Lin</span>
+        </span>
+        {% endif %}
+        -->
+
+        <!--p class="readmore">
+          <a href=""><data data-icon="ei-arrow-right"></data>Read this article  </a>
+        </p-->
+      </footer>
+      <hr/>
+    </article>
+    {% endfor %}
+
+    <div class="pagination older-post"><a href="./archive"><data data-icon="ei-arrow-right"></data> Archive  </a></div>
+  </div>
 </div>
